@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Login & Registration</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1><center><b><u>Notes</u></b></center></h1>
+            <br>
+            <form id="login-form" class="form" autocomplete="off">
+                <h2><center>Login</center></h2>
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Login</button>
+                <p>Don't have an account? <span id="register-link">Register</span></p>
+            </form>
+
+            <form id="register-form" class="form hidden" autocomplete="off">
+                <h2><center>Register</center></h2>
+                <input type="text" id="register-username" placeholder="Username" required>
+                <input type="email" id="register-email" placeholder="Email" required>
+                <input type="password" id="register-password" placeholder="Password" required>
+                <button type="submit">Register</button>
+                <p>Already have an account? <span id="login-link">Login</span></p>
+            </form>
+        </div>
+    </div>
+    <div class="success-message hidden" id="success-message">Success!</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Notes</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Notes</h1>
+
+        <!-- Notes Section -->
+        <div class="notes-section">
+            <h2>Your Notes</h2>
+            <textarea id="notes-area" rows="10" cols="50" placeholder="Write your notes here..."></textarea>
+            <button id="save-notes">Save Notes</button>
+        </div>
+
+        <!-- Logout Button -->
+        <button id="logout-button">Logout</button>
+    </div>
+
+    <script>
+        // Fetch the user's notes when the dashboard loads
+        document.addEventListener('DOMContentLoaded', async () => {
+            const response = await fetch('/get-notes', { method: 'GET' });
+            const result = await response.json();
+
+            if (result.success) {
+                document.getElementById('notes-area').value = result.notes || '';
+            } else {
+                alert('Failed to retrieve notes: ' + result.message);
+            }
+        });
+
+        // Save the notes when user clicks "Save Notes"
+        document.getElementById('save-notes').addEventListener('click', async () => {
+            const notes = document.getElementById('notes-area').value;
+            const response = await fetch('/save-notes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ notes }),
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Notes saved successfully!');
+            } else {
+                alert('Failed to save notes: ' + result.message);
+            }
+        });
+
+        // Handle Logout
+        document.getElementById('logout-button').addEventListener('click', async () => {
+            const response = await fetch('/logout', { method: 'POST' });
+            if (response.ok) {
+                window.location.href = '/';
+            } else {
+                alert('Error logging out.');
+            }
+        });
+    </script>
+</body>
+</html>
